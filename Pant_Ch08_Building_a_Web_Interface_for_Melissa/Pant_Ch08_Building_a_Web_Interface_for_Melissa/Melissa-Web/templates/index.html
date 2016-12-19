@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Melissa - Web Version</title>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="../static/audiodisplay.js"></script>
+	<script src="../static/recorder.js"></script>
+	<script src="../static/main.js"></script>
+	<style>
+	html { overflow: hidden; }
+	body { 
+		font: 14pt Arial, sans-serif; 
+	    background: url(../static/img/bg-sky.png);
+	    background-repeat: repeat !important;
+	    background-attachment: fixed;
+		display: flex;
+		flex-direction: column;
+		height: 100vh;
+		width: 100%;
+		margin: 0 0;
+	}
+	canvas { 
+		display: inline-block; 
+		background: #202020; 
+		width: 95%;
+		height: 45%;
+		box-shadow: 0px 0px 7px blue;
+	}
+	#controls {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-around;
+		height: 20%;
+		width: 100%;
+	}
+	#record { height: 13vh;}
+	#record.recording { 
+		background: red;
+		background: -webkit-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%); 
+		background: -moz-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%); 
+		background: radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%); opacity: 0.5;
+	}
+	#save, #save img { height: 10vh; }
+	#save { opacity: 0.35;}
+	#save[download] { opacity: 1;}
+	#viz {
+		height: 80%;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+	}
+	@media (orientation: landscape) {
+		body { flex-direction: row;}
+		#controls { flex-direction: column; height: 100%; width: 10%;}
+		#viz { height: 100%; width: 90%;}
+	}
+
+	</style>
+</head>
+<body>
+	<div id="viz">
+		<canvas id="analyser" width="1024" height="500"></canvas>
+		<div id="melissa"><span style="color: #56600FF; text-shadow: -1px 1px 8px #67C8FF, 1px -1px 8px #67C8FF;">Melissa</span></div>
+		<canvas id="wavedisplay" width="1024" height="500"></canvas>
+	</div>
+	
+	<div id="controls">
+		<img id="record" src="static/img/mic.png" onclick="toggleRecording(this);">
+		<a id="save" href="#"><img src="static/img/save.png"></a>
+		<a data-toggle="modal" data-target="#myModal" href="#"><img src="static/img/upload.png"></a>
+	</div>
+	
+	<div id="myModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Give Melissa The Audio File</h4>
+	      </div>
+	      <div class="modal-body">
+	        <form method="POST" enctype="multipart/form-data" action=""><input type="file" name="myfile" /><br/><input type="submit" value="Submit"/></form>
+	      </div>
+
+	    </div>
+
+	  </div>
+	</div>
+</body>
+</html>
